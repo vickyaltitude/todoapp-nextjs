@@ -3,13 +3,12 @@ import { Container, Row, Col, Form, Button, ListGroup, InputGroup, Navbar, Nav }
 import { FaTrash, FaEdit, FaSave, FaCheck } from 'react-icons/fa';
 import Link from 'next/link';
 
-const TodoPage = ({onAddToDo,todoLists,onSaveEditedTodo,onMarkAsCompleted}) => {
+const TodoPage = ({onAddToDo,todoLists,onSaveEditedTodo,onMarkAsCompleted,onDeleteTodo}) => {
      
     const [todos, setTodos] = useState(todoLists);
   const [newTodo, setNewTodo] = useState('');
   const [editingTodoId, setEditingTodoId] = useState(null);
   const [editingText, setEditingText] = useState('');
-  const [completedTodos, setCompletedTodos] = useState([]);
 
  
   const handleAddTodo = (e) => {
@@ -39,8 +38,9 @@ const TodoPage = ({onAddToDo,todoLists,onSaveEditedTodo,onMarkAsCompleted}) => {
 
 
   const handleDeleteTodo = (id) => {
-    const updatedTodos = todos.filter((todo) => todo.id !== id);
+    const updatedTodos = todos.filter((todo) => todo._id !== id);
     setTodos(updatedTodos);
+    onDeleteTodo(id)
   };
 
 
@@ -52,9 +52,7 @@ const TodoPage = ({onAddToDo,todoLists,onSaveEditedTodo,onMarkAsCompleted}) => {
     onMarkAsCompleted(id,!status[0].completed)
     setTodos(updatedTodos);
 
-   
-    const newCompletedTodos = todos.filter((todo) => todo.completed);
-    setCompletedTodos(newCompletedTodos);
+
   };
 
   return (

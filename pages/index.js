@@ -50,8 +50,21 @@ function HomePage(props){
       
   }
 
+  async function onDeleteTodo(id){
+     
+    const insertingNewTodo = await fetch('/api/tododelete',{
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id})
+     })
+     const response = await insertingNewTodo.json();
+     console.log(response)
+  }
+
     return (
-         <TodoPage onAddToDo={handleNewToDo}  todoLists={props.todos} onSaveEditedTodo={onSaveEditedTodo} onMarkAsCompleted={onMarkAsCompleted}/>
+         <TodoPage onAddToDo={handleNewToDo}  todoLists={props.todos} onSaveEditedTodo={onSaveEditedTodo} onMarkAsCompleted={onMarkAsCompleted} onDeleteTodo={onDeleteTodo}/>
     )
 
 }

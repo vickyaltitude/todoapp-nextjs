@@ -10,7 +10,7 @@ async function handler(req,res){
     const result = await meetupCollections.find().toArray();
     console.log(result);
     connectionDB.close();
-    res.status(200).json({message: 'Meetup Data Fetched!',data: result})
+    res.status(200).json({message: 'todo Data Fetched!',data: result})
 
    }
 }

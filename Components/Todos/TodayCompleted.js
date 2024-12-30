@@ -15,16 +15,9 @@ const CompletedTodosPage = ({ completedTodos, handleDeleteCompletedTodo }) => {
               <p>No completed todos yet!</p>
             ) : (
               completedTodos.map((todo) => (
-                <ListGroup.Item key={todo.id} className="d-flex justify-content-between align-items-center">
-                  <span>{todo.text}</span>
+                <ListGroup.Item key={todo._id} className="d-flex justify-content-between align-items-center">
+                  <span>{todo.todo}</span>
 
-                  <Button
-                    variant="outline-danger"
-                    size="sm"
-                    onClick={() => handleDeleteCompletedTodo(todo.id)}
-                  >
-                    <FaTrash />
-                  </Button>
                 </ListGroup.Item>
               ))
             )}
