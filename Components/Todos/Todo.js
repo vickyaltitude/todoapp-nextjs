@@ -3,8 +3,8 @@ import { Container, Row, Col, Form, Button, ListGroup, InputGroup, Navbar, Nav }
 import { FaTrash, FaEdit, FaSave, FaCheck } from 'react-icons/fa';
 import Link from 'next/link';
 
-const TodoPage = ({onAddToDo,todoLists}) => {
-
+const TodoPage = ({onAddToDo,todoLists,onSaveEditedTodo,onMarkAsCompleted}) => {
+     
     const [todos, setTodos] = useState(todoLists);
   const [newTodo, setNewTodo] = useState('');
   const [editingTodoId, setEditingTodoId] = useState(null);
@@ -27,9 +27,11 @@ const TodoPage = ({onAddToDo,todoLists}) => {
 
  
   const handleSaveEdit = (id) => {
+
     const updatedTodos = todos.map((todo) =>
-      todo.id === id ? { ...todo, text: editingText } : todo
+      todo._id === id ? { ...todo, todo: editingText } : todo
     );
+    onSaveEditedTodo(id,editingText)
     setTodos(updatedTodos);
     setEditingTodoId(null);
     setEditingText('');
@@ -44,8 +46,10 @@ const TodoPage = ({onAddToDo,todoLists}) => {
 
   const handleMarkAsCompleted = (id) => {
     const updatedTodos = todos.map((todo) =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      todo._id === id ? { ...todo, completed: !todo.completed } : todo
     );
+    const status = todos.filter(todo => todo._id === id)
+    onMarkAsCompleted(id,!status[0].completed)
     setTodos(updatedTodos);
 
    
@@ -108,7 +112,7 @@ const TodoPage = ({onAddToDo,todoLists}) => {
                   }`}
                 >
                      <Form.Check
-                   type="radio"
+                   type="checkbox"
                    checked={todo.completed}
                    onChange={() => handleMarkAsCompleted(todo._id)}
                  />
